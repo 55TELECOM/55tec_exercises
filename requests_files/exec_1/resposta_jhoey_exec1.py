@@ -3,13 +3,13 @@ import csv
 
 def get_users():    
     url = "https://jsonplaceholder.typicode.com/users"
-    response = requests.get(url, verify=False)
+    response = requests.get(url)
     users = response.json()
     return users
 
 def get_info_tasks(id):
     url = f"https://jsonplaceholder.typicode.com/users/{id}/todos" 
-    response = requests.get(url, verify=False)
+    response = requests.get(url)
     info_tasks = response.json()
     return info_tasks
 
@@ -30,8 +30,10 @@ def not_concluded_tasks(info_tasks):
 def productivy_percentage(info_tasks):
     concluidas = concluded_tasks(info_tasks)
     nao_concluidas = not_concluded_tasks(info_tasks)
-    total = concluidas + nao_concluidas
-    percentual = concluidas / total * 100
+    try:
+        percentual = concluidas / (concluidas + nao_concluidas) * 100
+    except ZeroDivisionError:
+        percentual = 0
     return round(percentual)
 
 def get_valor_percentual_produtividade(elemento):
@@ -59,18 +61,12 @@ def save_result_csv(info_completa):
             "Porcentagem Concluída": usuario['percentual_produtividade'],
             "Produtividade": usuario['produtividade']
         })
-        
+    filename = 'result.csv' 
     with open('result.csv', 'w', newline='', encoding='utf-8') as csvfile:
         csvwriter = csv.DictWriter(csvfile, fieldnames=fields)
         csvwriter.writeheader()
         csvwriter.writerows(rows)
    
-    filename = 'result.csv'
-    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
-        csvwriter = csv.DictWriter(csvfile, fieldnames=fields)
-        csvwriter.writeheader()
-        csvwriter.writerows(rows)
-
 def main():
     info_users = get_users() 
     info_completa = []
