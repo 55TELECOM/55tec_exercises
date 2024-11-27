@@ -36,7 +36,7 @@ def resultados_csv(dict_completa):
             "Título": usuarios["titulo"],
             "Sentimento": usuarios["sentimento"]
         })
-    csv_file = "Resultados_CSV"
+    csv_file = "Resultados.csv"
     with open(csv_file, 'w', newline='', encoding='utf-8') as csvfile:
         csvwriter = csv.DictWriter(csvfile, fieldnames=campos)
         csvwriter.writeheader()
