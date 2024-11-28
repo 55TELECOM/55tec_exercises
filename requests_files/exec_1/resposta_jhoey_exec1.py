@@ -3,13 +3,13 @@ import csv
 
 def get_users():    
     url = "https://jsonplaceholder.typicode.com/users"
-    response = requests.get(url)
+    response = requests.get(url, verify=False)
     users = response.json()
     return users
 
 def get_info_tasks(id):
     url = f"https://jsonplaceholder.typicode.com/users/{id}/todos" 
-    response = requests.get(url)
+    response = requests.get(url, verify=False)
     info_tasks = response.json()
     return info_tasks
 
@@ -62,8 +62,8 @@ def save_result_csv(info_completa):
             "Produtividade": usuario['produtividade']
         })
     filename = 'result.csv' 
-    with open('result.csv', 'w', newline='', encoding='utf-8') as csvfile:
-        csvwriter = csv.DictWriter(csvfile, fieldnames=fields)
+    with open(filename, 'w', newline='', encoding='utf-8') as filename:
+        csvwriter = csv.DictWriter(filename, fieldnames=fields)
         csvwriter.writeheader()
         csvwriter.writerows(rows)
    
