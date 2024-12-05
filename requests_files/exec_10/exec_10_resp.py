@@ -6,21 +6,18 @@ def pegar_populacao(url):
     lista_populacao = []
     paises = requests.get(url)
     paises_json = paises.json()
-    cont = 0
-    for population in paises_json:
-        if cont <=19:
+    for population in paises_json[:20]:
             pais = population['name']['common']
             populacao = population["population"]
             area = population['area']
             densidade_populacional = populacao / area
-            print(type(densidade_populacional))
             lista_populacao.append({
             'País': pais,
             'População': f'{populacao:.2f}',
             'Área': f'{area:.2f}km²',
             'Densidade_Populacional': densidade_populacional
         })
-        cont += 1
+        
     return lista_populacao
 
 def obter_densidade(pais):
