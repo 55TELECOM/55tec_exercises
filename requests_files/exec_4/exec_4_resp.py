@@ -55,13 +55,13 @@ def main():
         temperatura = lat_long_dados(populacao_info)
         temp_atual = temperatura["Temperatura_Atual"]
         temp_sens = temperatura["Sensação Térmica"]
-        temp_media = (temp_sens + temp_atual) / 2
+        temp_mediaa = (temp_sens + temp_atual) / 2
         populacao_atual = populacao_info["População"]
         pais_info = populacao_info["Capital"]
         dict_infos.append({
             "País": pais_info,
             "População": f"{populacao_atual:,.2f}",
-            "Temperatura Média": f"{temp_media:.2f}°C"
+            "Temperatura Média": f"{temp_mediaa:.2f}°C"
         })
     
     Paises_csv(dict_infos)
